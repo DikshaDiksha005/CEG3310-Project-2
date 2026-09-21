@@ -1,3 +1,33 @@
 .ORIG x3000
-; Add your code here
+
+LD R0, VALUE1
+LD R1, VALUE2
+
+; Compare R0 and R1
+NOT R2, R1
+ADD R2, R2, #1
+ADD R2, R0, R2
+BRz EQUAL
+
+; R0 and R1 are not equal
+AND R3, R3, #0
+ADD R3, R3, #-5
+BR STORE
+
+; R0 and R1 are equal
+EQUAL
+AND R3, R3, #0
+ADD R3, R3, #5
+
+; Store R3 at x8002
+STORE
+LD R4, RESULTADDR
+STR R3, R4, #0
+
+HALT
+
+VALUE1 .FILL #5
+VALUE2 .FILL #5
+RESULTADDR .FILL x8002
+
 .END
